@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+  namespace: example
+  labels:
+    app: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      containers:
+      - name: demo
+        image: srinu96/demo:1.0.0
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-service
+  namespace: example
+spec:
+  type: NodePort
+  selector:
+    app: demo
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 4000
+      name: https
+      nodePort: 30017

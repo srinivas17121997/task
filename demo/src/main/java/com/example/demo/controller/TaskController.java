@@ -42,7 +42,7 @@ public class TaskController {
     public Page<Task> filterTasks(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size,
                                   @RequestParam(defaultValue = "createdOn") String sortBy,
-                                  @RequestParam(defaultValue = "asc") String sortOrder) {
+                                  @RequestParam(defaultValue = "desc") String sortOrder) {
         Sort.Direction direction = sortOrder.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
 
