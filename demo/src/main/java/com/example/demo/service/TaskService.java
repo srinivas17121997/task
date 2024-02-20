@@ -7,12 +7,9 @@ import com.example.demo.exception.TaskNotFoundException;
 import com.example.demo.model.Task;
 import com.example.demo.respoitory.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.Optional;
@@ -52,6 +49,36 @@ public class TaskService {
         }
     }
 
+    public Task updateTask(TaskDTO taskDTO, int taskId){
+        try {
+            Optional<Task> oldTask = taskRepository.findById(taskId);
+            if(oldTask.isPresent()) {
+                Task task=updateTaskDetails(taskDTO,oldTask.get());
+                return taskRepository.save(task);
+            }else {
+                throw  new TaskNotFoundException("Not Found with id"+taskId);
+            }
+        }catch (InvalidTaskData invalidTaskData){
+            throw  invalidTaskData;
+        }
+        catch (Exception exception){
+            throw new ServiceException("Failed to Save the Task",exception);
+        }
+    }
+
+    private Task updateTaskDetails(TaskDTO taskDTO, Task task){
+
+        if(taskDTO.getEndDate()!=null){
+            task.setEndDate(taskDTO.getEndDate());
+        }
+        if(taskDTO.getTitle()!=null){
+            task.setTitle(taskDTO.getTitle());
+        }
+        if(taskDTO.getComments()!=null){
+            task.setComments(taskDTO.getComments());
+        }
+        return task;
+    }
     private void validaTaskData(TaskDTO taskDTO){
         if (taskDTO.getTitle()==null){
             throw  new InvalidTaskData("Pls send the title data for the task");

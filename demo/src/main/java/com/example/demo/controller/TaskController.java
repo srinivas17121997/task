@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RestController("/v1/api")
+@RestController
+@RequestMapping("/v1/api")
 public class TaskController {
 
     @Autowired
@@ -55,6 +56,21 @@ public class TaskController {
         Task task;
         try {
               task=  taskService.createTask(taskDTO);
+            return ResponseEntity.ok(task);
+        }catch (InvalidTaskData invalidTaskData){
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(invalidTaskData.getLocalizedMessage());
+        }
+        catch (ServiceException exception){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/tasks/{id}")
+    public ResponseEntity<?> updateTask(@RequestBody TaskDTO taskDTO,@PathVariable int id){
+
+        Task task;
+        try {
+            task=  taskService.updateTask(taskDTO,id);
             return ResponseEntity.ok(task);
         }catch (InvalidTaskData invalidTaskData){
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(invalidTaskData.getLocalizedMessage());
