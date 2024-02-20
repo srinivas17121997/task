@@ -1,7 +1,9 @@
 package com.example.demo.dto;
 
+import com.example.demo.util.TaskStatus;
 import org.springframework.lang.NonNull;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class TaskDTO {
@@ -9,8 +11,8 @@ public class TaskDTO {
     @NonNull
     private String title;
     private String description;
-    private boolean completed;
-    private Date endDate;
+    private TaskStatus taskStatus;
+    private LocalDate endDate;
     private String comments;
 
     public TaskDTO() {
@@ -32,19 +34,19 @@ public class TaskDTO {
         this.description = description;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void setTaskStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

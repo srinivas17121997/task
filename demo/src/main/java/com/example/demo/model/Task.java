@@ -1,7 +1,9 @@
 package com.example.demo.model;
 
+import com.example.demo.util.TaskStatus;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -13,10 +15,10 @@ public class Task {
     
     private String title;
     private String description;
-    private boolean completed;
+    private TaskStatus taskStatus;
 
-    private Date createdOn;
-    private Date endDate;
+    private LocalDate createdOn;
+    private LocalDate endDate;
 
     private String comments;
 
@@ -24,15 +26,17 @@ public class Task {
     public Task() {
     }
 
-    public Task(String title, String description, boolean completed, Date created_on, Date completed_on, String comments) {
+
+    public Task( String title, String description, TaskStatus taskStatus, LocalDate createdOn, LocalDate endDate, String comments) {
 
         this.title = title;
         this.description = description;
-        this.completed = completed;
-        this.createdOn = created_on;
-        this.endDate = completed_on;
+        this.taskStatus = taskStatus;
+        this.createdOn = createdOn;
+        this.endDate = endDate;
         this.comments = comments;
     }
+
 
     public Integer getId() {
         return id;
@@ -66,27 +70,27 @@ public class Task {
         this.description = description;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void setTaskStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
-    public Date getCreatedOn() {
+    public LocalDate getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(Date createdOn) {
+    public void setCreatedOn(LocalDate createdOn) {
         this.createdOn = createdOn;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 }
