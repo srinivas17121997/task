@@ -32,6 +32,12 @@ This Project helps in saving and retriving and updating and deleting  the tasks.
 
 # Application API's 
 
+1. Access swagger Page of application using below urls
+   1. swagger url
+      ```
+   http://minikube-ip/swagger-ui/index.html
+       ```
+
 1. Api's int he application to manage tasks
    1. list all tasks
       ```
@@ -49,4 +55,3 @@ This Project helps in saving and retriving and updating and deleting  the tasks.
       /v1/api/tasks/
          taskbody
       ```
-      
